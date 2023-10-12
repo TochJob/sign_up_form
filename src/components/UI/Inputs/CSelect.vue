@@ -30,7 +30,7 @@
         @click="
           selected = option.name;
           open = false;
-          $emit('inputChanged', option.value);
+          $emit('inputChanged', option);
         "
       >
         {{ option.name }}
@@ -47,10 +47,11 @@ export default {
       required: true,
     },
     error: String,
+    value: "",
   },
   data() {
     return {
-      selected: null,
+      selected: this.value,
       open: false,
     };
   },
@@ -60,8 +61,14 @@ export default {
       this.$emit("removeError", event.target.value);
     },
   },
+  watch: {
+    value(newValue) {
+      this.selected = newValue.name;
+    },
+  },
 };
 </script>
+
 <style lang="scss" scoped>
 .custom-select {
   position: relative;

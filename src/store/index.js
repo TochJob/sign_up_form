@@ -80,25 +80,15 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    checkValidInputs({ state }) {
-      Object.entries(state.inputsList).forEach((item) => {
-        if (!item[1].value) item[1].error = "Необходимо заполнить данное поле";
-      });
-      return;
-    },
-    async submitForm({ state, dispatch }) {
+    async submitForm({ state }) {
       if (!state.isPermission) {
-        console.log(0);
-
         state.permissonError = true;
         return;
       }
-      console.log(1);
-      // dispatch("checkValidInputs");
       const data = {
         public: state.isPublic ? 1 : 0,
         username: state.inputsList.username.value,
-        role: state.inputsList.position.value,
+        role: state.inputsList.position.value.value,
         email: state.inputsList.email.value,
         password: state.inputsList.password.value,
         password_repeat: state.inputsList.password_repeat.value,

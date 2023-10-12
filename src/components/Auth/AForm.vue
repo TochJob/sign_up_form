@@ -17,7 +17,7 @@ export default {
   name: "AForm",
   components: { APublick, AData, APermission, BOutline },
   props: {
-    
+    defaultValues: Object,
   },
   data() {
     return {
@@ -30,8 +30,10 @@ export default {
     async submit() {
       try {
         this.isSubmit = true;
-        await this.submitForm();
-        this.$emit("changeVisible");
+        const response = await this.submitForm();
+        if (response.success) {
+          this.$emit("changeVisible");
+        }
       } catch (error) {
         console.error(new Error(error));
       } finally {
@@ -43,7 +45,11 @@ export default {
     ...mapGetters(["inputsList"]),
   },
   mounted() {
-   
+    if (Object.keys(this.defaultValues).length) {
+      Object.entries(this.defaultValues).forEach((item) => {
+        this.CHANGE_INPUT_LIST({ element: item[0], value: item[1] });
+      });
+    }
   },
 };
 </script>

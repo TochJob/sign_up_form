@@ -3,7 +3,7 @@
     <transition name="slide-up">
       <div v-if="isFormVisible" class="sign">
         <h1 class="sign__title">Регистрация</h1>
-        <AForm @changeVisible="changeVisible" class="sign__form" />
+        <AForm @changeVisible="changeVisible" :defaultValues="defaultValues" class="sign__form" />
       </div>
     </transition>
     <transition name="slide-down">
@@ -28,7 +28,16 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isFormVisible"]),
+    ...mapGetters(["isFormVisible", "positionList"]),
+    defaultValues() {
+      return {
+        username: "default_name",
+        position: this.positionList[2],
+        email: "default@defgault.def",
+        password: "qweewq",
+        password_repeat: "qweewq",
+      };
+    },
   },
 };
 </script>

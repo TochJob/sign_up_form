@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <input
-      @input="updateValue"
       @focus="removeError"
+      v-model="inputValue"
       :placeholder="placeholder"
       :type="type"
       :class="{ error: error }"
@@ -20,16 +20,24 @@ export default {
     error: String,
     value: String,
   },
-  methods: {
-    updateValue(event) {
-      this.$emit("inputChanged", event.target.value);
+  computed: {
+    inputValue: {
+      get() {
+        return this.value;
+      },
+      set(newValue) {
+        this.$emit("inputChanged", newValue);
+      },
     },
+  },
+  methods: {
     removeError(event) {
       this.$emit("removeError", event.target.value);
     },
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .input {
   width: 100%;

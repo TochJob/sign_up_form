@@ -37,7 +37,6 @@ export default {
       this.CHANGE_INPUT_LIST({ element, value });
     },
     removeError(element, value) {
-      console.log("qwe", element, value);
       this.CHANGE_INPUT_ERROR({ element, error: "" });
     },
   },
